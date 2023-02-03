@@ -1,9 +1,8 @@
 // noinspection JSValidateTypes
-
 import {Form, Row, Col, Select, Input, DatePicker, Checkbox} from "antd"
 import {useState} from "react"
 import "antd/dist/antd.css"
-import "../styles/EmployeesForm.css"
+
 
 
 function Employee(props) {
