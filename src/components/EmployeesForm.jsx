@@ -1,14 +1,17 @@
 // noinspection JSValidateTypes
 
-import {Form, Row, Col, Select, Input, DatePicker,} from "antd"
+import {Form, Row, Col, Select, Input, DatePicker, Checkbox} from "antd"
+import {useState} from "react"
 import "antd/dist/antd.css"
 import "../styles/EmployeesForm.css"
 
 
 function Employee(props) {
+    const [createUser, setCreateUser] = useState(false)
+    const toggleCreateUser = ()=> setCreateUser(!createUser)
     const {getFieldDecorator} = props.form
     const layout = {
-        labelCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 10}, lg: { span: 13 } },
+        labelCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 13}, lg: { span: 13 } },
         wrapperCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 }, lg: { span: 11 } },
         row: { gutter: [10, 16] },
         col: { span: { xs: 24, sm: 24, md: 12, lg: 8} }
@@ -235,6 +238,46 @@ function Employee(props) {
                           </Form.Item>
                       </Col>
                   </Row>
+                  <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
+                      <Col {...layout.col.span}>
+                          <Form.Item label={"Create user account"}>
+                              {
+                                  getFieldDecorator("create_user_account")(
+                                      <Checkbox onChange={toggleCreateUser}></Checkbox>
+                                  )
+                              }
+                              </Form.Item>
+                      </Col>
+                  </Row>
+                  {
+                      createUser &&
+                      <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
+                          <Col {...layout.col.span}>
+                              <Form.Item label={"Roles"}>
+                                  {
+                                      getFieldDecorator("roles", {rules: [{required: true, message: "Please select at least one role"}]})(
+                                          <Select allowClear  mode={"multiple"}>
+                                              <Select.Option value={"User"}>User</Select.Option>
+                                              <Select.Option value={"Admin"}>Admin</Select.Option>
+                                              <Select.Option value={"Doctor"}>Doctor</Select.Option>
+                                              <Select.Option value={"Nurse"}>Nurse</Select.Option>
+                                              <Select.Option value={"Lab Tech"}>Lab Tech</Select.Option>
+                                          </Select>
+                                      )
+                                  }
+                              </Form.Item>
+                          </Col>
+                          <Col {...layout.col.span}>
+                              <Form.Item label={"Username"}>
+                                  {
+                                      getFieldDecorator("username", {rules: [{required: true, message: "Please enter the user name"}]})(
+                                          <Input/>
+                                      )
+                                  }
+                              </Form.Item>
+                          </Col>
+                      </Row>
+                  }
               </Form>
           </div>
         </>
