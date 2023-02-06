@@ -1,10 +1,11 @@
-import TabView from "./components/Tab.jsx";
 import "./styles/App.css"
+import TabView from "./components/Tab"
+import Mock from "./components/Mock"
 
 export default function App() {
     return (
         <div className={"app"}>
-            <TabView/>
+            <Mock/>
         </div>
     )
 }
