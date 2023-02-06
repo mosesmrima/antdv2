@@ -1,34 +1,54 @@
 import {useState} from "react"
-import {Form, Row, Col, Select, Input, DatePicker, Checkbox, Button} from "antd"
+import {Form, Row, Col, Select, Input, DatePicker, Checkbox, Button, message} from "antd"
 import {AiOutlineRight} from "react-icons/ai"
 
 import "../styles/Tab.css"
 import "antd/dist/antd.css"
 
 function MockLayout(props){
+
+    const handleSubmit = () => {
+        event.preventDefault()
+        props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                message.success("Completed")
+            }
+             else {
+                 message.error("Fill all required fields")
+            }
+        })
+    }
     const [optional, setOptional] = useState(false)
     const toggleOptional = () => setOptional(!optional)
     const [createUser, setCreateUser] = useState(false)
     const toggleCreateUser = ()=> setCreateUser(!createUser)
     const {getFieldDecorator} = props.form
     const layout = {
-        labelCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 10}, lg: { span: 10} },
+        labelCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 5}, lg: { span: 10} },
         wrapperCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 }, lg: { span: 11 } },
-        row: { gutter: [10, 0] },
+        row: { gutter: [5, 0] },
         col: { span: { xs: 24, sm: 24, md: 12, lg: 12} }
+    }
+    const style = {
+        style: {
+            borderRadius: "25px"
+        }
     }
 
     return (
-        <>
-            <Form>
-               <di className={"form-wrapper"}>
+        <div className={"actual-wrapper"}>
+            <Form colon={false} onSubmit={handleSubmit}>
+               <div className={"form-wrapper"}>
                    <div className={`required ${optional? "ease-in": ""}`}>
+                       <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
+
+                       </Row>
                        <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
                            <Col {...layout.col.span}>
                                <Form.Item label={"Title"} >
                                    {
                                        getFieldDecorator("title", {rules: [{required: true, message: "Please Select a title"}]})(
-                                           <Select allowClear={true}>
+                                           <Select allowClear={true} style={{borderRadius: "50px"}}>
                                                <Select.Option value={"Mr"}>Mr</Select.Option>
                                                <Select.Option value={"Miss"}>Miss</Select.Option>
                                                <Select.Option value={"Mrs"}>Mrs</Select.Option>
@@ -39,13 +59,11 @@ function MockLayout(props){
                                    }
                                </Form.Item>
                            </Col>
-                       </Row>
-                       <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
                            <Col {...layout.col.span}>
                                <Form.Item label={"Surname"}>
                                    {
                                        getFieldDecorator("surname", {rules: [{required: true, message: "Please input the name"}]})(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -54,7 +72,7 @@ function MockLayout(props){
                                <Form.Item label={"First Name"} >
                                    {
                                        getFieldDecorator("given_name", {rules: [{required: true, message: "Please input the name"}]})(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -92,7 +110,7 @@ function MockLayout(props){
                                <Form.Item label={"Date of Birth"}>
                                    {
                                        getFieldDecorator("date_of_birth", {rules: [{required: true, message: "Please input the date of birth"}]})(
-                                           <DatePicker/>
+                                           <DatePicker style={{width: "100%"}}/>
                                        )
                                    }
                                </Form.Item>
@@ -101,7 +119,7 @@ function MockLayout(props){
                                <Form.Item label={"Email"}>
                                    {
                                        getFieldDecorator("email", {rules: [{required: true, type: "email"}]})(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -110,7 +128,7 @@ function MockLayout(props){
                                <Form.Item label={"Mobile No."}>
                                    {
                                        getFieldDecorator("mobile", {rules: [{required: true, message: "Please enter the phone number"}]})(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -154,7 +172,7 @@ function MockLayout(props){
                                <Form.Item label={"Staff Number"}>
                                    {
                                        getFieldDecorator("staff_number", {rules: [{required: true, message: "Please enter the staff number"}]})(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -172,8 +190,8 @@ function MockLayout(props){
                                </Form.Item>
                            </Col>
                        </Row>
-                       <Row>
-                           <Col {...layout.col.span}>
+                       <Row gutter={8}>
+                           <Col span={24} >
                                <Form.Item label={"Create user account"}>
                                    {
                                        getFieldDecorator("create_user_account")(
@@ -184,10 +202,10 @@ function MockLayout(props){
                            </Col>
                            {
                                createUser && <>
-                                   <Col {...layout.col.span}>
+                                   <Col span={12}>
                                        <Form.Item label={"Roles"}>
                                            {
-                                               getFieldDecorator("roles", {rules: [{required: true, message: "Please select at least one role"}]})(
+                                               getFieldDecorator("roles")(
                                                    <Select allowClear  mode={"multiple"}>
                                                        <Select.Option value={"User"}>User</Select.Option>
                                                        <Select.Option value={"Admin"}>Admin</Select.Option>
@@ -199,11 +217,11 @@ function MockLayout(props){
                                            }
                                        </Form.Item>
                                    </Col>
-                                   <Col {...layout.col.span}>
+                                   <Col span={12}>
                                        <Form.Item label={"Username"}>
                                            {
-                                               getFieldDecorator("username", {rules: [{required: true, message: "Please enter the user name"}]})(
-                                                   <Input/>
+                                               getFieldDecorator("username")(
+                                                   <Input {...style}/>
                                                )
                                            }
                                        </Form.Item>
@@ -212,7 +230,7 @@ function MockLayout(props){
                            }
                        </Row>
                    </div>
-                   <Button className={`my-button ${optional? "ease-in": ""}`} onClick={toggleOptional}>Fill Optional data</Button>
+                   <Button style={{borderRadius: "30px", backgroundColor: "#001219", color: "#94d2bd"}} className={`my-button ${optional? "ease-in": ""}`} onClick={toggleOptional}>Fill Optional data</Button>
                    <AiOutlineRight size={20} className={`arrow ${optional? "ease-in": ""}`} onClick={toggleOptional}/>
                    <div className={`optional ${optional? "ease-in": ""}`}>
                        <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
@@ -220,7 +238,7 @@ function MockLayout(props){
                                <Form.Item label={"Middle Name"}>
                                    {
                                        getFieldDecorator("middle_name")(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -229,7 +247,7 @@ function MockLayout(props){
                                <Form.Item label={"Tel No."}>
                                    {
                                        getFieldDecorator("phone_number")(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -249,6 +267,8 @@ function MockLayout(props){
                                        getFieldDecorator("country")(
                                            <Select allowClear={true}>
                                                <Select.Option value={"Kenya"}>Kenya</Select.Option>
+                                               <Select.Option value={"Uganda"}>Uganda</Select.Option>
+                                               <Select.Option value={"Tanzania"}>Uganda</Select.Option>
                                            </Select>
                                        )
                                    }
@@ -258,7 +278,7 @@ function MockLayout(props){
                                <Form.Item label={"Town"}>
                                    {
                                        getFieldDecorator("town")(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -267,7 +287,7 @@ function MockLayout(props){
                                <Form.Item label={"Postal Code"}>
                                    {
                                        getFieldDecorator("postal_code")(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
@@ -276,16 +296,21 @@ function MockLayout(props){
                                <Form.Item label={"License No."}>
                                    {
                                        getFieldDecorator("license_no")(
-                                           <Input/>
+                                           <Input {...style}/>
                                        )
                                    }
                                </Form.Item>
                            </Col>
                        </Row>
                    </div>
-               </di>
+               </div>
+                <Row>
+                    <Col offset={20}>
+                        <Button htmlType={"submit"} style={{backgroundColor: "#001219", borderRadius: "20px", color: "#94d2bd"}}>Submit</Button>
+                    </Col>
+                </Row>
             </Form>
-        </>
+        </div>
     )
 }
 
