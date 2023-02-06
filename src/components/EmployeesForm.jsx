@@ -25,7 +25,7 @@ function Employee(props) {
     const layout = {
         labelCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 13}, lg: { span: 13 } },
         wrapperCol: { xs: { span: 24 }, sm: { span: 24 }, md: { span: 24 }, lg: { span: 11 } },
-        row: { gutter: [10, 16] },
+        row: { gutter: [10, 0] },
         col: { span: { xs: 24, sm: 24, md: 12, lg: 12} }
     }
 
@@ -34,7 +34,7 @@ function Employee(props) {
               <Form labelCol={layout.labelCol} wrapperCol={layout.wrapperCol} colon={false}>
                   {/* Row For the title field*/}
                   <div className={"title-icon"} onClick={()=>toggleCategoryOpen(0)}>
-                     <Divider><Typography.Title level={3}>Personal Details</Typography.Title> {categoryOpen[0]?<AiOutlineUp/>:<AiOutlineDown/>}</Divider>
+                          <Typography.Title level={3}>Personal Details</Typography.Title> {categoryOpen[0]?<AiOutlineUp/>:<AiOutlineDown/>}
                   </div>
                   {
                       categoryOpen[0] &&
@@ -128,7 +128,8 @@ function Employee(props) {
                       </div>
                   }
                   <div className={"title-icon"} onClick={()=>toggleCategoryOpen(1)}>
-                      <Typography.Title level={3}>Contact Details</Typography.Title> {categoryOpen[1]?<AiOutlineUp/>:<AiOutlineDown/>}
+                          <Typography.Title level={3}>Contact Details</Typography.Title> {categoryOpen[1]?<AiOutlineUp/>:<AiOutlineDown/>}
+
                   </div>
                   {
                       categoryOpen[1] &&
@@ -194,7 +195,7 @@ function Employee(props) {
                       </div>
                   }
                   <div className={"title-icon"} onClick={()=>toggleCategoryOpen(2)}>
-                      <Typography.Title level={3}>Work Details</Typography.Title> {categoryOpen[2]?<AiOutlineUp/>:<AiOutlineDown/>}
+                          <Typography.Title level={3}>Work Details</Typography.Title> {categoryOpen[2]?<AiOutlineUp/>:<AiOutlineDown/>}
                   </div>
                   {categoryOpen[2] &&
                       <div>
