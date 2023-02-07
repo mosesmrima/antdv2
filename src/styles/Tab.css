@@ -55,10 +55,7 @@
     width: 40%;
     border-radius: 5px;
     padding: 10px;
-    position: absolute;
-    visibility: hidden;
-    right: -100%;
-    transition: visibility 4s ease-in 1s;
+
 }
 
  .optional.ease-in {
@@ -84,13 +81,13 @@
  }
 
 .form-wrapper .ant-form-item {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
 }
 .form-wrapper  .ant-form-item-label {
     line-height: 20px !important;
 }
 .form-wrapper  .ant-form-item-control {
-    line-height: 0px !important;
+    line-height: 0!important;
 }
 
 .ant-select-selection--single {
