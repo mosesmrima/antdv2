@@ -1,15 +1,18 @@
 import {useState} from "react"
 import {Form, Row, Col, Select, Input, DatePicker, Checkbox, Button, message} from "antd"
 import {AiOutlineRight} from "react-icons/ai"
+import { motion, useAnimation} from "framer-motion"
 
 import "../styles/Tab.css"
 import "antd/dist/antd.css"
 
 function MockLayout(props){
 
+    const controlRequired = useAnimation()
+    const controlOptional = useAnimation()
     const handleSubmit = () => {
         event.preventDefault()
-        props.form.validateFieldsAndScroll((err, values) => {
+        props.form.validateFieldsAndScroll((err, _) => {
             if (!err) {
                 message.success("Completed")
             }
@@ -39,7 +42,9 @@ function MockLayout(props){
         <div className={"actual-wrapper"}>
             <Form colon={false} onSubmit={handleSubmit}>
                <div className={"form-wrapper"}>
-                   <div className={`required ${optional? "ease-in": ""}`}>
+                   <motion.div className={`required `}
+                               animate={controlRequired}
+                   >
                        <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
 
                        </Row>
@@ -229,10 +234,43 @@ function MockLayout(props){
                                </>
                            }
                        </Row>
-                   </div>
-                   <Button style={{borderRadius: "30px", backgroundColor: "#001219", color: "#94d2bd"}} className={`my-button ${optional? "ease-in": ""}`} onClick={toggleOptional}>Fill Optional data</Button>
-                   <AiOutlineRight size={20} className={`arrow ${optional? "ease-in": ""}`} onClick={toggleOptional}/>
-                   <div className={`optional ${optional? "ease-in": ""}`}>
+                   </motion.div>
+                   <Button  style={{borderRadius: "30px", backgroundColor: "#001219", color: "#94d2bd"}} className={`my-button ${optional? "ease-in": ""}`} onClick={() => {
+                       toggleOptional()
+                       controlRequired.start({
+                           scaleX: 0.7,
+                           transition: {
+                               duration: 0.5
+                           }
+                       })
+                       return controlOptional.start({
+                           opacity: 1,
+                           transition: {
+                               duration: 1,
+                               delay: 0.5
+                           }
+                       })
+                   }
+                   }>Fill Optional data</Button>
+                   <AiOutlineRight size={20} className={`arrow ${optional? "ease-in": ""}`} onClick={()=> {
+                       toggleOptional()
+                       controlRequired.start({
+                           scaleX: 1
+                       })
+                       return controlOptional.start({
+                           opacity: 0,
+                           transition: {
+                               duration: 0.5
+                           }
+                       })
+                   }
+                   }/>
+                   <motion.div className={`optional`}
+                        animate={controlOptional}
+                               initial={{
+                                   opacity: 0
+                               }}
+                   >
                        <Row gutter={layout.row.gutter} type={"flex"} justify={"start"}>
                            <Col {...layout.col.span}>
                                <Form.Item label={"Middle Name"}>
@@ -302,7 +340,7 @@ function MockLayout(props){
                                </Form.Item>
                            </Col>
                        </Row>
-                   </div>
+                   </motion.div>
                </div>
                 <Row>
                     <Col offset={20}>
