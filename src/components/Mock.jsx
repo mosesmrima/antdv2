@@ -1,5 +1,5 @@
 import {useState} from "react"
-import {Form, Row, Col, Select, Input, DatePicker, Checkbox, Button, message} from "antd"
+import {Form, Row, Col, Select, Input, DatePicker, Checkbox, Button, message,Popconfirm} from "antd"
 import {AiOutlineRight} from "react-icons/ai"
 import { motion, useAnimation} from "framer-motion"
 
@@ -21,6 +21,7 @@ function MockLayout(props){
             }
         })
     }
+    
     const [optional, setOptional] = useState(false)
     const toggleOptional = () => setOptional(!optional)
     const [createUser, setCreateUser] = useState(false)
@@ -37,6 +38,22 @@ function MockLayout(props){
             borderRadius: "25px"
         }
     }
+    function confirm(e) {
+        console.log(e);
+        message.success('Logout successful');
+      }
+      
+      function cancel(e) {
+        console.log(e);
+        message.error('Continue using our services');
+      }
+    const handleClick=()=>{
+        localStorage.clear();
+        window.location.reload();
+
+
+    }
+    
 
     return (
         <div className={"actual-wrapper"}>
@@ -345,9 +362,21 @@ function MockLayout(props){
                 <Row>
                     <Col offset={20}>
                         <Button htmlType={"submit"} style={{backgroundColor: "#001219", borderRadius: "20px", color: "#94d2bd"}}>Submit</Button>
+
+                        
                     </Col>
+                    <Popconfirm
+    title="Are you sure you want to logout?"
+    onConfirm={handleClick}
+    onCancel={cancel}
+    okText="Yes"
+    cancelText="No"
+  >
+  <Button type='danger' style={{color:"white"}} className='btn1'>Logout</Button> 
+  </Popconfirm>
                 </Row>
             </Form>
+            
         </div>
     )
 }
