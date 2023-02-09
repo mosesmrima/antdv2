@@ -3,11 +3,11 @@ body{
    background-color: aliceblue;
    background-size: cover;
 }
-.login-form {
+.login-form1{
     max-width: 300px;
     justify-content: center;
     margin-top: 5px;
-    width: 400px;
+    width: 300px;
     padding-left: 50px;
 
     
@@ -27,7 +27,7 @@ body{
    background-color: slategray;
    border: 0px solid black;
    margin-top: 100px;
-   margin-left: 170px;
+   margin-left: 10px;
    
 
   }

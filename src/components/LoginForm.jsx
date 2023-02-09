@@ -14,9 +14,10 @@ import {
   Divider,
 } from "antd";
 import "antd/dist/antd.css";
-import "./index2.css";
+import "../styles/index2.css";
 
-import Home from "./Home";
+
+import Mock from "./Mock";
 
 const About = (props) => {
   const { getFieldDecorator } = props.form;
@@ -44,7 +45,7 @@ const About = (props) => {
   
 
   return getEmail && getPassword ? (
-    <Home />
+    <Mock/>
   ) : (
    
       <Row>
@@ -59,7 +60,7 @@ const About = (props) => {
             <h1 className="yes">Login</h1>
             {/* ERROR !*/}
 
-            <Form className="login-form" onSubmit={handleSubmit}>
+            <Form className="login-form1" onSubmit={handleSubmit}>
               <Form.Item>
                 {getFieldDecorator("email", {
                   rules: [
